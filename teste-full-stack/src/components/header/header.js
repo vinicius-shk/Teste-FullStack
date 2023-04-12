@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import * as H from './styles'
 import AppContext from '../../Context/AppContext';
 
@@ -10,7 +10,14 @@ export default function Header() {
     setSiteFilter,
     category,
     setCategory,
-  } = useContext(AppContext)
+    handleButton,
+    handleSelect,
+  } = useContext(AppContext);
+
+  useEffect(() => {
+    handleSelect(category);
+  }, [category, handleSelect])
+
   return (
     <H.Container>
       <H.Select
@@ -33,7 +40,7 @@ export default function Header() {
         value={ searchTerm }
         onChange={ ({target: { value }}) => setSearchTerm(value) }
       />
-      <H.Button>
+      <H.Button onClick={handleButton}>
         Search
       </H.Button>
     </H.Container>

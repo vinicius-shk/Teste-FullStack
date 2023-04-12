@@ -1,13 +1,13 @@
 import AppProvider from "./Context/AppProvider";
 import GlobalStyles from "./GlobalStyles";
-import Header from "./components/header/header";
+import Main from "./Pages/main";
 
 function App() {
   return (
     <>
     <AppProvider>
       <GlobalStyles />
-      <Header />
+      <Main />
     </AppProvider>
     </>
   );
