@@ -1,10 +1,12 @@
 import styled from 'styled-components'
 
 export const Container = styled.main`
-  height: 100vh;
-  width: 100vw;
+  min-height:95vh;
+  max-width: 100vw;
   display: flex;
-  flex-flow: column nowrap;
-  gap: 30px;
-  border: solid green 1px;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 1em;
+  gap: 2em;
 `;
