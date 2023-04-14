@@ -22,8 +22,8 @@ const bpCrawler = async () => {
       for (let i = 0; i < links.length; i += 1) {
         const data = {
           title: titles[i],
-          img_href: images[i],
-          url: links[i],
+          thumbnail: images[i],
+          permalink: links[i],
           desc: "Buscapé",
           price: prices[i]
         }
@@ -35,5 +35,4 @@ const bpCrawler = async () => {
 return prodLinks
 };
 
-bpCrawler()
 module.exports = bpCrawler;
