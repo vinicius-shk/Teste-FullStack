@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 
 const bpCrawler = async () => {
-    const browser = await puppeteer.launch({ headless: false });
+    const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
 
     const categories = ['celular', 'tv', 'geladeira'];
@@ -9,38 +9,31 @@ const bpCrawler = async () => {
     const prodLinks = [];
 
     for (const category of categories) {
+      const prod = {
+        category,
+        data: []
+      }
       await page.goto(endpoint.concat(category));
+      await page.waitForSelector('img[decoding="async"]');
       const links = await page.$$eval('.SearchCard_ProductCard_Inner__7JhKb', (el) => el.map((link) => link.href));
-      prodLinks.push(...links);
+      const images = await page.$$eval('img[decoding="async"]', (el) => el.map((img) => img.getAttribute('src')))
+      const titles = await page.$$eval('h2.Text_Text__h_AF6', (el) => el.map((title) => title.textContent));
+      const prices = await page.$$eval('p[data-testid="product-card::price"]', (el) => el.map((price) => price.textContent));
+      for (let i = 0; i < links.length; i += 1) {
+        const data = {
+          title: titles[i],
+          img_href: images[i],
+          url: links[i],
+          desc: "Buscapé",
+          price: prices[i]
+        }
+        prod.data.push(data)
+      }
+      prodLinks.push(prod);
     }
-
-
-    // const treatedLinks = links.filter((link) => {
-    //   const splitted = link.split('/');
-    //   return ['celular', 'tv', 'geladeira'].includes(splitted[splitted.length - 1])
-    // })
-
-    // const categoryLinks = [...new Set(treatedLinks)];
-    console.log(prodLinks);
-    const arr = [];
-    // for (const link of categoryLinks) {
-    //     await page.goto(link);
-    //     await page.waitForSelector('[data-testid="product-card::card"]');
-    //     await page.waitForSelector('[data-testid="product-card::name"]');
-    //     await page.waitForSelector('[data-testid="product-card::price"]');
-    //     const infos = {
-    //         img_href: await page.$$eval('span > img', (el) => el),
-    //         url: await page.$$eval('[data-testid="product-card::card"]', (el) => el.getAttribute('href')),
-    //         title: await page.$eval('[data-testid="product-card::name"]', (el) => el.innerHTML),
-    //         description:  'Buscapé',
-    //         price: (await page.$eval('[data-testid="product-card::price"]', (el) => el.innerHTML)),
-    //     }
-    //     arr.push(infos)
-    //     console.log(infos);
-    // }
     page.close()
-return arr
+return prodLinks
 };
 
 bpCrawler()
-module.exports = bpCrawler
+module.exports = bpCrawler;
