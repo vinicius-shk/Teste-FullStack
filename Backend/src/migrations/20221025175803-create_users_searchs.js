@@ -20,7 +20,6 @@ module.exports = {
       },
       searchTerm: {
         type: Sequelize.STRING,
-        allowNull: false,
       },
     });
   },
