@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
 import AppContext from "./AppContext";
 import { getProductsByName } from "../Service/api";
+import useApi from "../Hooks/useApi";
 
 function AppProvider({children}) {
   const [searchTerm, setSearchTerm] = useState('');
@@ -11,6 +12,9 @@ function AppProvider({children}) {
   const [bpCrawl, setBpCrawl] = useState(null);
   const [bpFilter, setBpFilter] = useState(null);
   const [bpSearch, setBpSearch] = useState(null);
+
+  const api = useApi();
+
   const handleButton = useCallback(async () => {
     if (siteFilter === 'Mercado Livre') {
       const data = [...mlFetch].filter((item) => item.title.toLowerCase().includes(searchTerm.toLowerCase()));
@@ -19,7 +23,9 @@ function AppProvider({children}) {
       const data = [...bpFilter].filter((item) => item.title.toLowerCase().includes(searchTerm.toLocaleLowerCase()));
       setBpSearch(data);
     }
-  }, [siteFilter, searchTerm, mlFetch, bpFilter])
+    const body = { site: siteFilter, category, input: searchTerm };
+    api.postSearch(body);
+  }, [siteFilter, searchTerm, mlFetch, bpFilter, api, category])
 
   const handleSelect = useCallback(async () => {
     const query = {

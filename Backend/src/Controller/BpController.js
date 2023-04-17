@@ -13,7 +13,7 @@ class BpController {
       const { type, message } = await this.bpService.crawl();
       this.res.status(type).json(message);
     } catch (e) {
-      this.next(e);
+      console.log(e);
     }
   }
 }

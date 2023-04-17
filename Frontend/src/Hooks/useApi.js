@@ -10,6 +10,10 @@ const useApi = () => ({
     const response = await api.get('/crawl');
     return response;
   },
+  postSearch: async (body) => {
+    const response = await api.post('/user', body);
+    return response;
+  } 
 });
 
 export default useApi;

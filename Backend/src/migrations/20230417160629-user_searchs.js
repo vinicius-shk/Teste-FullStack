@@ -18,7 +18,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      searchTerm: {
+      input: {
         type: Sequelize.STRING,
       },
     });

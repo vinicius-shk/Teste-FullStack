@@ -1,12 +1,9 @@
-const BpModel = require('../Model/BpModel');
+const bpCrawler = require('../Utils/bpCrawler');
 
 class BpService {
-  constructor() {
-    this.bpModel = new BpModel();
-  }
 
   async crawl() {
-    const response = await this.bpModel.crawl();
+    const response = await bpCrawler();
     return { type: 200, message: response };
   }
 }
