@@ -12,7 +12,8 @@ export const Container = styled.header`
 `;
 
 export const Image = styled.img`
-  height: 100%;
+  max-height: 70%;
+  min-height: 70%;
   mix-blend-mode: color-dodge;
 `;
 

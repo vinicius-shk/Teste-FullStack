@@ -10,10 +10,14 @@ function AppProvider({children}) {
   const [mlFilter, setMlFilter] = useState(null);
   const [bpCrawl, setBpCrawl] = useState(null);
   const [bpFilter, setBpFilter] = useState(null);
+  const [bpSearch, setBpSearch] = useState(null);
   const handleButton = useCallback(async () => {
     if (siteFilter === 'Mercado Livre') {
-      const data = [...mlFetch].filter((item) => item.title.toLowerCase().includes(searchTerm.toLowerCase()))
+      const data = [...mlFetch].filter((item) => item.title.toLowerCase().includes(searchTerm.toLowerCase()));
       setMlFilter(data);
+    } else {
+      const data = [...bpFilter].filter((item) => item.title.toLowerCase().includes(searchTerm.toLocaleLowerCase()));
+      setBpSearch(data);
     }
   }, [siteFilter, searchTerm, mlFetch])
 
@@ -29,7 +33,7 @@ function AppProvider({children}) {
     }
     else {
       const filtered = bpCrawl.filter((item) => item.category === query[category].toLowerCase());
-      setBpFilter(filtered[0].data)
+      setBpFilter(filtered[0].data);
     }
   }, [category, siteFilter, bpCrawl])
    
@@ -49,6 +53,8 @@ function AppProvider({children}) {
     setBpCrawl,
     bpFilter,
     setBpFilter,
+    bpSearch,
+    setBpSearch,
   }), [
     searchTerm,
     setSearchTerm,
@@ -64,6 +70,8 @@ function AppProvider({children}) {
     setBpCrawl,
     bpFilter,
     setBpFilter,
+    bpSearch,
+    setBpSearch,
   ]
   );
 

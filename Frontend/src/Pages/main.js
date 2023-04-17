@@ -6,25 +6,26 @@ import AppContext from "../Context/AppContext";
 import useApi from "../Hooks/useApi";
 
 export default function Main() {
-  const { mlFetch, mlFilter, bpFilter, setBpCrawl, siteFilter } = useContext(AppContext);
+  const { mlFetch, mlFilter, bpFilter, setBpCrawl, siteFilter, bpSearch } = useContext(AppContext);
   const api = useApi();
 
   useEffect(() => {
     (async function () {
-      const data = await api.crawl()
+      const data = await api.crawl();
       setBpCrawl(data.data);
-    })()
+    })();
   }, []);
 
   const renderProds = () => {
-    let prodList = []
+    let prodList = [];
     if (siteFilter === 'Mercado Livre') {
-      prodList = mlFetch
+      prodList = mlFetch;
       if (mlFilter) {
-        prodList = mlFilter
+        prodList = mlFilter;
       }
     } else {
-      prodList = bpFilter
+      prodList = bpFilter;
+      if (bpSearch) prodList = bpSearch;
     }
     return (
     !prodList ?

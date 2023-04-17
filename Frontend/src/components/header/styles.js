@@ -14,6 +14,10 @@ export const Select = styled.select`
   border-radius: 5px;
   background-color: #0c6291;
   color: white;
+  :disabled {
+    background-color: red;
+    opacity: 70%;
+  }
 `;
 
 export const Option = styled.option`

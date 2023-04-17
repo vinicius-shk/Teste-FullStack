@@ -12,6 +12,7 @@ export default function Header() {
     setCategory,
     handleButton,
     handleSelect,
+    bpCrawl,
   } = useContext(AppContext);
 
   useEffect(() => {
@@ -22,9 +23,10 @@ export default function Header() {
     <H.Container>
       <H.Select
         value={ siteFilter }
+        disabled={ !bpCrawl }
         onChange={ ({ target: { value } }) => setSiteFilter(value) }
       >
-        <H.Option>Mercado Livre</H.Option>
+        <H.Option>{ bpCrawl ? 'Mercado Livre' : 'Loading...' }</H.Option>
         <H.Option>Buscapé</H.Option>
       </H.Select>
       <H.Select
