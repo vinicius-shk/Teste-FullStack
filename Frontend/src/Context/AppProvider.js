@@ -19,7 +19,7 @@ function AppProvider({children}) {
       const data = [...bpFilter].filter((item) => item.title.toLowerCase().includes(searchTerm.toLocaleLowerCase()));
       setBpSearch(data);
     }
-  }, [siteFilter, searchTerm, mlFetch])
+  }, [siteFilter, searchTerm, mlFetch, bpFilter])
 
   const handleSelect = useCallback(async () => {
     const query = {
